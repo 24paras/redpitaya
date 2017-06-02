@@ -12,21 +12,15 @@ echo "first echo: $ts, $start"
 
 # # # # Check decimation factor before running this script # # # # It should be 8 for Fs=15.625 MHz
 
-a=1
 difference=0
 #echo "init"
-while [ "$a" -gt 0 ]  
+while [ "$start" -gt 0 ]  
 do 
- if [ $a -lt 2 ]
- then
-  acquire 16384 8 > /mnt/storage/Plug/"$start.$a".csv
-  a=`expr $a + 1`
- fi
  start=`date +%s`  
  difference=`expr $start - $ts`
  if [ $difference -gt 9 ]
  then
- 	a=1 && echo $start && ts=`date +%s`
+	acquire 16384 8 > /mnt/storage/Plug/"$start".csv && echo $start && ts=`date +%s`
  fi
 done
 
